@@ -1,21 +1,29 @@
 package com.youtao.manager.service;
 
-import java.util.List;
-
+import com.github.abel533.mapper.Mapper;
+import com.youtao.manager.mapper.ItemCatMapper;
 import com.youtao.manager.pojo.ItemCat;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
- * 
- * @title: ItemCatService
- * @description: 商品类目Service
- * @Copyright: Copyright (c) 2018
- * @Company: lgxkdream.github.io
  * @author gang.li
  * @version 1.0.0
- * @since 2018年2月25日 下午12:30:41
+ * @title: ItemCatServiceImpl
+ * @description: 商品类目Service实现
+ * @Copyright: Copyright (c) 2018
+ * @Company: lgxkdream.github.io
+ * @since 2018年2月25日 下午12:31:14
  */
-public interface ItemCatService {
+@Service
+public class ItemCatService extends BaseService<ItemCat> {
 
-	List<ItemCat> queryItemCatListByParentId(Long parentId);
+    @Autowired
+    private ItemCatMapper itemCatMapper;
+
+    @Override
+    public Mapper<ItemCat> getMapper() {
+        return this.itemCatMapper;
+    }
 
 }
