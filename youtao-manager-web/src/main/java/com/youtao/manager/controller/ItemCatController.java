@@ -14,7 +14,7 @@ import java.util.List;
 
 /**
  * @title: ItemCatController
- * @description: 商品类目管理
+ * @description: 商品类目Controller
  * @Copyright: Copyright (c) 2018
  * @Company: lgxkdream.github.io
  * @author gang.li
