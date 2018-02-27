@@ -13,35 +13,36 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 /**
- * @author gang.li
- * @version 1.0.0
  * @title: ItemCatController
  * @description: 商品类目管理
  * @Copyright: Copyright (c) 2018
  * @Company: lgxkdream.github.io
+ * @author gang.li
+ * @version 1.0.0
  * @since 2018年2月25日 下午12:34:21
  */
 @Controller
 @RequestMapping("/item/cat")
 public class ItemCatController {
 
-    @Autowired
-    private ItemCatService itemCatService;
+	@Autowired
+	private ItemCatService itemCatService;
 
-    @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public ResponseEntity<List<ItemCat>> queryItemCatListByParentId(@RequestParam(value = "id", defaultValue = "0") Long parentId) {
-        try {
-            ItemCat itemCat = new ItemCat();
-            itemCat.setParentId(parentId);
-            List<ItemCat> list = this.itemCatService.queryList(itemCat);
-            if (null == list || list.isEmpty()) {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-            }
-            return ResponseEntity.ok(list);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
-    }
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	public ResponseEntity<List<ItemCat>> queryItemCatListByParentId(
+			@RequestParam(value = "id", defaultValue = "0") Long parentId) {
+		try {
+			ItemCat itemCat = new ItemCat();
+			itemCat.setParentId(parentId);
+			List<ItemCat> list = this.itemCatService.queryList(itemCat);
+			if (null == list || list.isEmpty()) {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+			}
+			return ResponseEntity.ok(list);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+	}
 
 }

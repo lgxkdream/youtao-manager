@@ -9,18 +9,21 @@ import com.youtao.manager.pojo.BasePojo;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 /**
- * @author gang.li
- * @version 1.0.0
  * @title: BaseService
  * @description: 基础Service
  * @Copyright: Copyright (c) 2018
  * @Company: lgxkdream.github.io
+ * @author gang.li
+ * @version 1.0.0
  * @since 2018年2月26日 上午12:08:39
  */
 public abstract class BaseService<T extends BasePojo> {
 
-    public abstract Mapper<T> getMapper();
+    @Autowired
+    private Mapper<T> mapper;
 
     /**
      * 根据主键查询
@@ -29,7 +32,7 @@ public abstract class BaseService<T extends BasePojo> {
      * @return
      */
     public T queryById(Long id) {
-        return this.getMapper().selectByPrimaryKey(id);
+        return this.mapper.selectByPrimaryKey(id);
     }
 
     /**
@@ -38,7 +41,7 @@ public abstract class BaseService<T extends BasePojo> {
      * @return
      */
     public List<T> queryAll() {
-        return this.getMapper().select(null);
+        return this.mapper.select(null);
     }
 
     /**
@@ -48,7 +51,7 @@ public abstract class BaseService<T extends BasePojo> {
      * @return
      */
     public T queryOne(T record) {
-        return this.getMapper().selectOne(record);
+        return this.mapper.selectOne(record);
     }
 
     /**
@@ -58,14 +61,14 @@ public abstract class BaseService<T extends BasePojo> {
      * @return
      */
     public List<T> queryList(T record) {
-        return this.getMapper().select(record);
+        return this.mapper.select(record);
     }
 
     /**
      * 根据条件分页查询多条
      *
-     * @param record   条件
-     * @param pageNum  页数
+     * @param record 条件
+     * @param pageNum 页数
      * @param pageSize 页大小
      * @return
      */
@@ -86,7 +89,7 @@ public abstract class BaseService<T extends BasePojo> {
         Date date = new Date();
         record.setCreated(date);
         record.setUpdated(date);
-        return this.getMapper().insert(record);
+        return this.mapper.insert(record);
     }
 
     /**
@@ -99,7 +102,7 @@ public abstract class BaseService<T extends BasePojo> {
         Date date = new Date();
         record.setCreated(date);
         record.setUpdated(date);
-        return this.getMapper().insertSelective(record);
+        return this.mapper.insertSelective(record);
     }
 
     /**
@@ -110,7 +113,7 @@ public abstract class BaseService<T extends BasePojo> {
      */
     public int update(T record) {
         record.setUpdated(new Date());
-        return this.getMapper().updateByPrimaryKey(record);
+        return this.mapper.updateByPrimaryKey(record);
     }
 
     /**
@@ -122,7 +125,7 @@ public abstract class BaseService<T extends BasePojo> {
     public int updateSelective(T record) {
         record.setCreated(null);
         record.setUpdated(new Date());
-        return this.getMapper().updateByPrimaryKeySelective(record);
+        return this.mapper.updateByPrimaryKeySelective(record);
     }
 
     /**
@@ -132,21 +135,21 @@ public abstract class BaseService<T extends BasePojo> {
      * @return
      */
     public int deleteById(Long id) {
-        return this.getMapper().deleteByPrimaryKey(id);
+        return this.mapper.deleteByPrimaryKey(id);
     }
 
     /**
      * 批零删除
      *
-     * @param clazz    实体Class对象
+     * @param clazz 实体Class对象
      * @param property 字段名
-     * @param ids      字段值列表
+     * @param ids 字段值列表
      * @return
      */
     public int deleteByIds(Class<T> clazz, String property, List<Object> ids) {
         Example example = new Example(clazz);
         example.createCriteria().andIn(property, ids);
-        return this.getMapper().deleteByExample(example);
+        return this.mapper.deleteByExample(example);
     }
 
     /**
@@ -156,7 +159,7 @@ public abstract class BaseService<T extends BasePojo> {
      * @return
      */
     public int delete(T record) {
-        return this.getMapper().delete(record);
+        return this.mapper.delete(record);
     }
 
 }

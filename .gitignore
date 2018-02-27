@@ -1,4 +1,7 @@
 *.prefs
 *.classpath
 *.project
+*.iml
 *.
+.idea
+.settings

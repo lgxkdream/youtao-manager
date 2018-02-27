@@ -6,12 +6,12 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * @author gang.li
- * @version 1.0.0
  * @title: ItemCat
  * @description: 商品类目实体
  * @Copyright: Copyright (c) 2018
  * @Company: lgxkdream.github.io
+ * @author gang.li
+ * @version 1.0.0
  * @since 2018年2月25日 下午12:28:45
  */
 @Table(name = "tb_item_cat")
