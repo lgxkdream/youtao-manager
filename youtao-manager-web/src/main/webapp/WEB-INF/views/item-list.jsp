@@ -5,9 +5,9 @@
     <tr>
         <th data-options="field:'ck',checkbox:true"></th>
         <th data-options="field:'id',width:60">商品ID</th>
-        <th data-options="field:'title',width:200">商品标题</th>
-        <th data-options="field:'cid',width:100">叶子类目</th>
-        <th data-options="field:'sellPoint',width:100">卖点</th>
+        <th data-options="field:'title',width:300">商品标题</th>
+        <th data-options="field:'cid',width:50">叶子类目</th>
+        <th data-options="field:'sellPoint',width:200">卖点</th>
         <th data-options="field:'price',width:70,align:'right',formatter:YOUTAO.formatPrice">价格</th>
         <th data-options="field:'num',width:70,align:'right'">库存数量</th>
         <th data-options="field:'barcode',width:100">条形码</th>
@@ -67,7 +67,38 @@
                     });
 
                     //加载商品规格
-                    $.getJSON('/rest/item/param/item/query/' + data.id, function (_data) {
+        			$.ajax({
+        				url : "/rest/item/param/value/" + data.id,
+        				type : "GET",
+        				dataType : "json",
+        				statusCode: {
+        					200: function(_data) {
+        						$("#itemeEditForm .params").show();
+	                            $("#itemeEditForm [name=itemParams]").val(_data.paramData);
+	                            $("#itemeEditForm [name=itemParamId]").val(_data.id);
+	
+	                            //回显商品规格
+	                            var paramData = JSON.parse(_data.paramData);
+	
+	                            var html = "<ul>";
+	                            for (var i in paramData) {
+	                                var pd = paramData[i];
+	                                html += "<li><table>";
+	                                html += "<tr><td colspan=\"2\" class=\"group\">" + pd.group + "</td></tr>";
+	
+	                                for (var j in pd.params) {
+	                                    var ps = pd.params[j];
+	                                    html += "<tr><td class=\"param\"><span>" + ps.k + "</span>: </td><td><input autocomplete=\"off\" type=\"text\" value='" + ps.v + "'/></td></tr>";
+	                                }
+	
+	                                html += "</li></table>";
+	                            }
+	                            html += "</ul>";
+	                            $("#itemeEditForm .params td").eq(1).html(html);
+        					}
+        				}
+        			});
+                    /* $.getJSON('/rest/item/param/value/query/' + data.id, function (_data) {
                         if (_data && _data.status == 200 && _data.data && _data.data.paramData) {
                             $("#itemeEditForm .params").show();
                             $("#itemeEditForm [name=itemParams]").val(_data.data.paramData);
@@ -92,15 +123,32 @@
                             html += "</ul>";
                             $("#itemeEditForm .params td").eq(1).html(html);
                         }
-                    });
+                    }); */
 
-                    YOUTAO.init({
+					//查询商品类目数据
+        			$.ajax({
+        				url : "/rest/item/cat/" + data.cid,
+        				type : "GET",
+        				dataType : "json",
+        				success : function(_data){
+        					YOUTAO.init({
+                				"pics" : data.image,
+                				"cid" : data.cid,
+                				"cname" : _data.name,
+                				fun:function(node){
+                					YOUTAO.changeItemParam(node, "itemeEditForm");
+                				}
+                			});
+        				}
+        			});
+                    /* YOUTAO.init({
                         "pics": data.image,
                         "cid": data.cid,
                         fun: function (node) {
                             YOUTAO.changeItemParam(node, "itemeEditForm");
                         }
-                    });
+                    }); */
+                    
                 }
             }).window("open");
         }

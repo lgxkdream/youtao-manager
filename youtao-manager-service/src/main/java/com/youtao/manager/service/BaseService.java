@@ -1,15 +1,15 @@
 package com.youtao.manager.service;
 
+import java.util.Date;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.github.abel533.entity.Example;
 import com.github.abel533.mapper.Mapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.youtao.manager.pojo.BasePojo;
-
-import java.util.Date;
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * @title: BaseService
@@ -78,6 +78,23 @@ public abstract class BaseService<T extends BasePojo> {
         List<T> list = this.queryList(record);
         return new PageInfo<T>(list);
     }
+    
+    /**
+     * 排序分页查询多条
+     * @param pageNum 页数
+     * @param pageSize 页大小
+     * @param orderByClause 排序条件
+     * @param clazz 结果类型Class对象
+     * @return
+     */
+    public PageInfo<T> querySortPages(Integer pageNum, Integer pageSize, String orderByClause, Class<T> clazz) {
+    	// 设置分页参数
+        PageHelper.startPage(pageNum, pageSize);
+        Example example = new Example(clazz);
+        example.setOrderByClause(orderByClause);
+        List<T> list = this.mapper.selectByExample(example);
+        return new PageInfo<T>(list);
+	}
 
     /**
      * 保存

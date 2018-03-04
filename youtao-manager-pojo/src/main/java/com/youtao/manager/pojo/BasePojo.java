@@ -2,6 +2,9 @@ package com.youtao.manager.pojo;
 
 import java.util.Date;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 /**
  * @title: BasePojo
  * @description: 基础实体
@@ -31,5 +34,10 @@ public abstract class BasePojo {
 	public void setUpdated(Date updated) {
 		this.updated = updated;
 	}
+	
+	@Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
+    }
 
 }

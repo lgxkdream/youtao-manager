@@ -18,6 +18,11 @@
         <module>youtao-manager-web</module>
     </modules>
     <dependencies>
+    	<dependency>
+    		<groupId>com.youtao</groupId>
+    		<artifactId>youtao-common</artifactId>
+    		<version>1.0.0-SNAPSHOT</version>
+    	</dependency>
         <!-- 单元测试 -->
         <dependency>
             <groupId>junit</groupId>

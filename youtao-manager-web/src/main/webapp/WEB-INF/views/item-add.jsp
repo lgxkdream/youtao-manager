@@ -134,7 +134,7 @@
             	500: function() {
             		$.messager.alert('提示', '新增商品失败!');
             	}
-            }/* ,
+            }/*
             success: function (msg) {
                 $.messager.alert('提示', '新增商品成功!');
             },
