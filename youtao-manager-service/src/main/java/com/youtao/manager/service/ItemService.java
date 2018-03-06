@@ -41,7 +41,7 @@ public class ItemService extends BaseService<Item> {
 		ItemDesc itemDesc = new ItemDesc();
 		itemDesc.setItemId(item.getId());
 		itemDesc.setItemDesc(desc);
-		itemDescService.save(itemDesc);
+		this.itemDescService.save(itemDesc);
 		// 保存商品规格参数
 		ItemParamValue itemParamValue = new ItemParamValue();
 		itemParamValue.setItemId(item.getId());
@@ -62,12 +62,12 @@ public class ItemService extends BaseService<Item> {
 		ItemDesc itemDesc = new ItemDesc();
 		itemDesc.setItemId(item.getId());
 		itemDesc.setItemDesc(desc);
-		itemDescService.updateSelective(itemDesc);
+		this.itemDescService.updateSelective(itemDesc);
 		// 更新 商品规格参数
 		ItemParamValue itemParamValue = new ItemParamValue();
 		itemParamValue.setItemId(item.getId());
 		itemParamValue.setParamData(itemParams);
-		itemParamValueService.updateByItemIdSelective(itemParamValue);
+		this.itemParamValueService.updateByItemIdSelective(itemParamValue);
 	}
 
 	/**

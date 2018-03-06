@@ -12,7 +12,7 @@
 <script type="text/javascript">
     $(function () {
         $("#contentCategory").tree({
-            url: '/rest/content/category',
+            url: '/rest/content/category/list',
             animate: true,
             method: "GET",
             onContextMenu: function (e, node) {
