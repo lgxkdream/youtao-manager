@@ -2,6 +2,8 @@ package com.youtao.manager.service;
 
 import org.springframework.stereotype.Service;
 
+import com.github.pagehelper.PageInfo;
+import com.youtao.common.bean.EasyUIResult;
 import com.youtao.manager.pojo.Content;
 
 /**
@@ -15,5 +17,17 @@ import com.youtao.manager.pojo.Content;
  */
 @Service
 public class ContentService extends BaseService<Content> {
+	
+	/**
+	 * 内容查询
+	 * @param categoryId 类目id
+	 * @param page 页数
+	 * @param rows 页大小
+	 * @return
+	 */
+	public EasyUIResult queryContentList(Long categoryId, Integer page, Integer rows) {
+		PageInfo<Content> pageInfo = this.querySortPages(page, rows, "updated DESC", "categoryId", categoryId, Content.class);
+		return new EasyUIResult(pageInfo.getTotal(), pageInfo.getList());
+	}
 
 }

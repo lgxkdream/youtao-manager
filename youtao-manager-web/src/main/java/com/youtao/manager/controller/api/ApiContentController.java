@@ -1,4 +1,4 @@
-package com.youtao.manager.controller;
+package com.youtao.manager.controller.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,21 +9,20 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.youtao.common.bean.EasyUIResult;
-import com.youtao.manager.pojo.Content;
 import com.youtao.manager.service.ContentService;
 
 /**
- * @title: ContentController
- * @description: 
+ * @title: ApiContentController
+ * @description: 内容对外接口
  * @Copyright: Copyright (c) 2018
  * @Company: lgxkdream.github.io
  * @author gang.li
  * @version 1.0.0
- * @since 2018年3月6日 下午3:22:11
+ * @since 2018年3月7日 上午11:43:05
  */
 @Controller
-@RequestMapping("/content")
-public class ContentController {
+@RequestMapping("/api/content")
+public class ApiContentController {
 	
 	@Autowired
 	private ContentService contentService;
@@ -44,23 +43,6 @@ public class ContentController {
 			e.printStackTrace();
 		}
 		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
-	}
-
-	/**
-	 * 内容添加
-	 * @param content 内容
-	 * @return
-	 */
-	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Void> saveContent(Content content) {
-		try {
-			content.setId(null);
-			this.contentService.save(content);
-			return ResponseEntity.status(HttpStatus.CREATED).build();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 	}
 
 }

@@ -2,7 +2,9 @@ package com.youtao.manager.service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.github.abel533.entity.Example;
@@ -80,18 +82,23 @@ public abstract class BaseService<T extends BasePojo> {
     }
     
     /**
-     * 排序分页查询多条
+     * 根据查询条件及排序条件分页查询多条
      * @param pageNum 页数
      * @param pageSize 页大小
      * @param orderByClause 排序条件
+     * @param property 查询条件
+     * @param value 查询条件值
      * @param clazz 结果类型Class对象
      * @return
      */
-    public PageInfo<T> querySortPages(Integer pageNum, Integer pageSize, String orderByClause, Class<T> clazz) {
+    public PageInfo<T> querySortPages(Integer pageNum, Integer pageSize, String orderByClause, String property, Object value, Class<T> clazz) {
     	// 设置分页参数
         PageHelper.startPage(pageNum, pageSize);
         Example example = new Example(clazz);
         example.setOrderByClause(orderByClause);
+        if (StringUtils.isNotBlank(property) && Objects.nonNull(value)) {
+        	example.createCriteria().andEqualTo(property, value);
+		}
         List<T> list = this.mapper.selectByExample(example);
         return new PageInfo<T>(list);
 	}

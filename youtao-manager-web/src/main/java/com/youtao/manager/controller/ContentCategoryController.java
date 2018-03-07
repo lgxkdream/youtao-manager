@@ -38,7 +38,7 @@ public class ContentCategoryController {
 	 * @param parentId 父节点id
 	 * @return
 	 */
-	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<List<ContentCategory>> queryContentCategoryListByParentId(
 			@RequestParam(value = "id", defaultValue = "0") Long parentId) {
 		try {

@@ -77,9 +77,8 @@ public class ItemService extends BaseService<Item> {
 	 * @return
 	 */
 	public EasyUIResult queryItemList(Integer page, Integer rows) {
-		PageInfo<Item> pageInfo = this.querySortPages(page, rows, "updated DESC", Item.class);
+		PageInfo<Item> pageInfo = this.querySortPages(page, rows, "updated DESC", null, null, Item.class);
 		return new EasyUIResult(pageInfo.getTotal(), pageInfo.getList());
 	}
-
 
 }
