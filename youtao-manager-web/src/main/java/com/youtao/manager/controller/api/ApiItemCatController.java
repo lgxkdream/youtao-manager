@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.youtao.common.bean.ItemCatResult;
+import com.youtao.common.service.RedisService;
 import com.youtao.manager.service.ItemCatService;
-import com.youtao.manager.service.RedisService;
 
 /**
  * @title: ApiItemCatController

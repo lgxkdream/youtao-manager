@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.github.pagehelper.PageInfo;
 import com.youtao.common.bean.EasyUIResult;
+import com.youtao.common.service.RedisService;
 import com.youtao.manager.pojo.Item;
 import com.youtao.manager.pojo.ItemDesc;
 import com.youtao.manager.pojo.ItemParamValue;
@@ -20,6 +21,13 @@ import com.youtao.manager.pojo.ItemParamValue;
  */
 @Service
 public class ItemService extends BaseService<Item> {
+	
+	private static final String REDIS_ITEM_KEY = "YOUTAO_PORTAL_ITEM_";
+	private static final String REDIS_ITEM_DESC_KEY = "YOUTAO_PORTAL_ITEM_DESC_";
+	private static final String REDIS_ITEM_PARAM_VALUE_KEY = "YOUTAO_PORTAL_ITEM_PARAM_VALUE_";
+	
+	@Autowired
+	private RedisService redisService;
 	
 	@Autowired
 	private ItemDescService itemDescService;
@@ -68,6 +76,9 @@ public class ItemService extends BaseService<Item> {
 		itemParamValue.setItemId(item.getId());
 		itemParamValue.setParamData(itemParams);
 		this.itemParamValueService.updateByItemIdSelective(itemParamValue);
+		redisService.del(REDIS_ITEM_KEY + item.getId());
+		redisService.del(REDIS_ITEM_DESC_KEY + item.getId());
+		redisService.del(REDIS_ITEM_PARAM_VALUE_KEY + item.getId());
 	}
 
 	/**
